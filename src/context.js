@@ -4,15 +4,37 @@ const ProductContext = React.createContext();
 
 class ProductProvider extends Component {
   state = {
-    products: storeProducts,
+    products: [],
     detailProduct: detailProduct
   };
+  componentDidMount() {
+    this.setProducts();
+  }
 
-  handleDetail = () => {
-    console.log("Hello from Handle Details");
+  setProducts = () => {
+    let products = [];
+    storeProducts.forEach(item => {
+      const singleItem = { ...item };
+      products = [...products, singleItem];
+    });
+    this.setState({
+      products: products
+    });
   };
-  addToCart = () => {
-    console.log("Hello from Add To Cart");
+
+  getItem = id => {
+    const product = this.state.products.find(item => item.id === id);
+    return product;
+  };
+
+  handleDetail = id => {
+    const product = this.getItem(id);
+    this.setState({
+      detailProduct: product
+    });
+  };
+  addToCart = id => {
+    console.log(`id for this product is ${id}`);
   };
   render() {
     return (
