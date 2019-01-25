@@ -1,11 +1,13 @@
 import React from "react";
 import CartItem from "./CartItem";
 
-export default function CartList() {
+export default function CartList({ value }) {
+  const { cart } = value;
   return (
-    <React.Fragment>
-      <div>Hello from cart list</div>
-      <CartItem />
-    </React.Fragment>
+    <section className="container-fluid">
+      {cart.map(item => {
+        return <CartItem key={item.id} item={item} value={value} />;
+      })}
+    </section>
   );
 }
